@@ -9,12 +9,12 @@ class NewFruit extends React.Component {
 
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleDescChange = this.handleDescChange.bind(this);
-    this.addFruits = this.addFruits.bind(this);
+    this.addFruit = this.addFruit.bind(this);
   }
 
   render() {
     return (
-      <form onSubmit={this.addFruits}>
+      <form onSubmit={this.addFruit}>
         <input type="text"
           placeholder="Add more fruits"
           value={this.state.fruitName}
@@ -25,7 +25,7 @@ class NewFruit extends React.Component {
           value={this.state.fruitDescription}
           onChange={this.handleDescChange}>
         </input>
-        <button onClick={this.addFruits} style={{backgroundColor: 'lightblue'}}>Add Fruit</button>
+        <button onClick={this.addFruit} style={{backgroundColor: 'lightblue'}}>Add Fruit</button>
       </form>
     )
   }
@@ -45,9 +45,9 @@ class NewFruit extends React.Component {
   }
 
   //adds fruits to my fruits array.
-  addFruits(event) {
+  addFruit(event) {
     const {fruitName, fruitDescription} = this.state;
-    this.props.addFruits(fruitName, fruitDescription);
+    this.props.addFruit(fruitName, fruitDescription);
     this.resetInputs()
     event.preventDefault();
   }
