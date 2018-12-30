@@ -24,33 +24,38 @@ class Body extends React.Component {
     }).then((response) => {return response.json()})
   }
 
-  deleteFruit(name, description) {
-    let body = JSON.stringify({fruit: {name: name, description: description}})
-  fetch('http://localhost:3001/fruits', {
-      method: 'POST',
+  handleRemoveFruit(id) {
+    fetch(`http://localhost:3001/fruits/${id}`,
+    {
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
-      },
-      body: body,
-    }).then((response) => {return response.json()})
+      }
+    }).then((response) => {
+        console.log('Item was deleted!')
+    })
   }
 
 
   addfruit(name, description) {
     const {fruits} = this.state
     const newId = fruits.length + 1;
-    const newFruitsList = fruits.push({description: description, name: name, id: newId})
-    this.setState({
-      fruit: newFruitsList,
-    })
-    this.handleSaveFruit(name, description)
+    if(description !== "" && name !== "") {
+      const newFruitsList = fruits.push({description: description, name: name, id: newId})
+      this.setState({
+        fruit: newFruitsList,
+      })
+      this.handleSaveFruit(name, description)
+    }else{
+      alert("Please enter a name and description.")
+    }
   }
 
   render() {
     return (
       <div>
         <NewFruit fruits={this.state.fruits} addFruit={this.addfruit}/>
-        <AllFruits fruits={this.state.fruits} />
+        <AllFruits fruits={this.state.fruits} handleRemoveFruit={this.handleRemoveFruit}/>
       </div>
     )
   }
